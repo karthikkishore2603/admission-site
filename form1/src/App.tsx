@@ -2,7 +2,7 @@ import React from "react";
 import "./assests/css/App.css";
 import logo from "./assests/img/clgtitle.png";
 import Button from "@mui/material/Button";
-
+import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -64,6 +64,20 @@ export default function Homepage() {
 
   return (
     <>
+      <Box 
+      sx={
+        {
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "2%",
+          
+        }
+      
+      }>
+        <img src={logo} style={{ maxWidth: "80%", height: "auto" }} />
+      </Box>
       <div
         style={{
           display: "flex",
@@ -73,39 +87,39 @@ export default function Homepage() {
           marginTop: "2%",
         }}
       >
-        <img src={logo} width="900px" />
+        {/* <img src={logo} width="900px" /> */}
 
-        <Button variant="contained" onClick={handleClickOpen}>Contained</Button>
+        <Button variant="contained" onClick={handleClickOpen}>
+          Contained
+        </Button>
       </div>
 
-      
-
       <div>
-      <React.Fragment>
-      
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </React.Fragment>
+        <React.Fragment>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Use Google's location service?"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Let Google help apps determine location. This means sending
+                anonymous location data to Google, even when no apps are
+                running.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Disagree</Button>
+              <Button onClick={handleClose} autoFocus>
+                Agree
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </React.Fragment>
       </div>
     </>
   );
