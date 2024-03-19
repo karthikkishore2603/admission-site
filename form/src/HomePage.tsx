@@ -2,7 +2,7 @@ import { useState } from 'react'
 import logo from './assets/img/clgtlt.png'
 
 
-function App() {
+export default function App() {
   const [count, setCount] = useState(0)
 
   return (
@@ -13,4 +13,3 @@ function App() {
   )
 }
 
-export default App
