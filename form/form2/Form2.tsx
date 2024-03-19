@@ -2,10 +2,18 @@ import React from "react";
 
 export default function Form2() {
   return (
-    <div>
-      <h1>Form 2</h1>
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    }}>
       <img src='../src/assets/img/clgtlt.png' alt="logo" />
+
+      <h1>Admission Enquiry </h1>
     </div>
+
+    
   );
 }
 
