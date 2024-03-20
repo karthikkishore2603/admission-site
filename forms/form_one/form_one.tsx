@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -12,12 +12,20 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import { Typography } from "@mui/material";
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const [emailError, setEmailError] = React.useState(false);
-  const [phoneError, setphoneError] = React.useState(false);
+  const [phoneError, setPhoneError] = React.useState(false);
+  const [registerError, setRegisterError] = React.useState(false);
+  const [dobError, setDobError] = React.useState(false);
+  const [touchedFields, setTouchedFields] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    registerNumber: false,
+    dob: false,
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,9 +36,14 @@ export default function FormDialog() {
   };
 
   const [course, setCourse] = React.useState("");
+  const [tentativeCutoff, setTentativeCutoff] = React.useState("");
 
   const handleCourseChange = (event) => {
     setCourse(event.target.value);
+  };
+
+  const handleTentativeCutoffChange = (event) => {
+    setTentativeCutoff(event.target.value);
   };
 
   const handleFormSubmit = async (event) => {
@@ -38,18 +51,25 @@ export default function FormDialog() {
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData.entries());
     try {
-      console.log("Form submitted:", formData);
-      await axios.post("http://localhost:5000/api/formone", formData, {
+      console.log("Form submitted:", formJson);
+      await axios.post("http://localhost:5000/api/formone", formJson, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log("Form submitted:", formJson);
       alert("Form submitted successfully!");
       handleClose();
     } catch (error) {
       console.error("Error submitting form:", error);
     }
+  };
+
+  const handleFieldFocus = (field) => {
+    setTouchedFields((prev) => ({ ...prev, [field]: true }));
+  };
+
+  const handleFieldBlur = (field) => {
+    setTouchedFields((prev) => ({ ...prev, [field]: false }));
   };
 
   return (
@@ -82,7 +102,35 @@ export default function FormDialog() {
             label="Name"
             fullWidth
             variant="standard"
+            placeholder={!touchedFields.name ? "Enter your name" : ""}
+            onFocus={() => handleFieldFocus("name")}
+            onBlur={() => handleFieldBlur("name")}
           />
+          <FormControl fullWidth>
+  <InputLabel htmlFor="dob"></InputLabel>
+  <TextField
+    required
+    margin="dense"
+    id="dob"
+    label="Date of Birth"
+    type="date"
+    variant="outlined"
+    fullWidth
+    InputLabelProps={{
+      shrink: true,
+    }}
+    name="dob"
+    error={dobError}
+    helperText={dobError ? "Please enter a valid date" : ""}
+    onFocus={() => handleFieldFocus("dob")}
+    onBlur={() => handleFieldBlur("dob")}
+    sx={{
+      marginTop: '20px', // Adjust the top margin as needed
+    }}
+  />
+</FormControl>
+
+
           <TextField
             required
             margin="dense"
@@ -94,16 +142,45 @@ export default function FormDialog() {
             variant="standard"
             error={emailError}
             helperText={emailError ? "Please enter a valid email address" : ""}
+            placeholder={!touchedFields.email ? "Enter your email address" : ""}
+            onFocus={() => handleFieldFocus("email")}
+            onBlur={() => handleFieldBlur("email")}
           />
           <TextField
             required
             margin="dense"
             id="phone"
             name="phone"
-            label="phone Number"
+            label="Phone Number"
+            type="tel"
             fullWidth
             variant="standard"
-            
+            error={phoneError}
+            helperText={phoneError ? "Please enter a valid phone number" : ""}
+            placeholder={!touchedFields.phone ? "Enter your phone number" : ""}
+            onFocus={() => handleFieldFocus("phone")}
+            onBlur={() => handleFieldBlur("phone")}
+          />
+          <TextField
+            required
+            margin="dense"
+            id="registerNumber"
+            name="registerNumber"
+            label="Register Number"
+            type="number"
+            fullWidth
+            variant="standard"
+            error={registerError}
+            helperText={
+              registerError ? "Please enter a valid register number" : ""
+            }
+            placeholder={
+              !touchedFields.registerNumber
+                ? "Enter your register number"
+                : ""
+            }
+            onFocus={() => handleFieldFocus("registerNumber")}
+            onBlur={() => handleFieldBlur("registerNumber")}
           />
           <FormControl fullWidth margin="dense">
             <InputLabel id="course-label">Course</InputLabel>
@@ -124,6 +201,7 @@ export default function FormDialog() {
                   },
                 },
               }}
+              placeholder="Select your course"
             >
               <MenuItem value="CSE">
                 Computer Science Engineering (CSE)
@@ -149,6 +227,22 @@ export default function FormDialog() {
               </MenuItem>
             </Select>
           </FormControl>
+          <FormControl fullWidth margin="dense">
+            <InputLabel id="cutoff-label">Tentative Cut-off</InputLabel>
+            <Select
+              labelId="cutoff-label"
+              id="tentativeCutoff"
+              name="tentativeCutoff"
+              value={tentativeCutoff}
+              onChange={handleTentativeCutoffChange}
+              placeholder="Select tentative cut-off"
+            >
+              <MenuItem value="<150">&lt;150</MenuItem>
+              <MenuItem value="150-160">150-160</MenuItem>
+              <MenuItem value="160-170">160-170</MenuItem>
+              {/* Add more options as needed */}
+            </Select>
+          </FormControl>
           <TextField
             margin="dense"
             id="district"
@@ -156,14 +250,7 @@ export default function FormDialog() {
             label="District"
             fullWidth
             variant="standard"
-          />
-          <TextField
-            margin="dense"
-            id="tentative_cutoff"
-            name="tentative_cutoff"
-            label="Tentative Cut-off"
-            fullWidth
-            variant="standard"
+            placeholder="Enter your district"
           />
         </DialogContent>
         <DialogActions>
@@ -174,158 +261,3 @@ export default function FormDialog() {
     </React.Fragment>
   );
 }
-
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import {
-//   Button,
-//   Dialog,
-//   DialogActions,
-//   DialogContent,
-//   DialogContentText,
-//   DialogTitle,
-//   FormControl,
-//   InputLabel,
-//   MenuItem,
-//   Select,
-//   TextField
-// } from '@mui/material';
-
-// function FormDialog() {
-//   const [open, setOpen] = useState(false);
-//   const [emailError, setEmailError] = useState(false);
-//   const [phoneError, setphoneError] = useState(false);
-//   // const [course, setCourse] = useState('');
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     email: '',
-//     phone: '',
-//     // course: '',
-//     district: '',
-//     tentative_cutoff: ''
-//   });
-
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
-
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
-
-//   const handleCourseChange = (event) => {
-//     setCourse(event.target.value);
-//   };
-
-//   const handleChange = (event) => {
-//     setFormData({ ...formData, [event.target.name]: event.target.value });
-//   };
-
-//   const handleFormSubmit = async (event) => {
-//     event.preventDefault();
-//     try {
-//       console.log('Form submitted:', formData);
-//       await axios.post('http://localhost:5000/api/submit-form', formData, {
-//         headers: {
-//           'Content-Type': 'application/json'
-//         }
-//       });
-
-//       alert('Form submitted successfully!');
-//       handleClose();
-//     } catch (error) {
-//       console.error('Error submitting form:', error);
-//     }
-//   };
-
-//   return (
-//     <React.Fragment>
-//       <Button variant="outlined" onClick={handleClickOpen}>
-//         Enquire Now!
-//       </Button>
-//       <Dialog
-//         open={open}
-//         onClose={handleClose}
-//         PaperProps={{
-//           component: 'form',
-//           onSubmit: handleFormSubmit,
-//         }}
-//       >
-//         <DialogTitle>Application Enquiry Form</DialogTitle>
-//         <DialogContent>
-//           <DialogContentText>
-//             Please enter the details to move further with the application process
-//           </DialogContentText>
-
-//           <TextField
-//             autoFocus
-//             required
-//             margin="dense"
-//             id="name"
-//             name="name"
-//             label="Name"
-//             fullWidth
-//             variant="standard"
-//             value={formData.name}
-//             onChange={handleChange}
-//           />
-//           <TextField
-//             required
-//             margin="dense"
-//             id="email"
-//             name="email"
-//             label="Email Address"
-//             type="email"
-//             fullWidth
-//             variant="standard"
-//             error={emailError}
-//             helperText={emailError ? 'Please enter a valid email address' : ''}
-//             value={formData.email}
-//             onChange={handleChange}
-//           />
-//           <TextField
-//             required
-//             margin="dense"
-//             id="phone"
-//             name="phone"
-//             label="phone Number"
-//             type="tel"
-//             fullWidth
-//             variant="standard"
-//             error={phoneError}
-//             helperText={phoneError ? 'Please enter a 10-digit number' : ''}
-//             value={formData.phone}
-//             onChange={handleChange}
-//           />
-
-//           <TextField
-//             margin="dense"
-//             id="district"
-//             name="district"
-//             label="District"
-//             fullWidth
-//             variant="standard"
-//             value={formData.district}
-//             onChange={handleChange}
-//           />
-//           <TextField
-//             margin="dense"
-//             id="tentative_cutoff"
-//             name="tentative_cutoff"
-//             label="Tentative Cut-off"
-//             fullWidth
-//             variant="standard"
-//             value={formData.tentative_cutoff}
-//             onChange={handleChange}
-//           />
-//         </DialogContent>
-//         <DialogActions>
-//           <Button onClick={handleClose}>Cancel</Button>
-//           <Button type="submit">Submit</Button>
-//         </DialogActions>
-//       </Dialog>
-//     </React.Fragment>
-//   );
-// }
-
-// export default FormDialog;
