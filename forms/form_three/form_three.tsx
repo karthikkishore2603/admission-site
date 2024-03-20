@@ -49,7 +49,7 @@ export default function Formthree() {
             },
           }}
         >
-          <img src="../src/assets/img/merit.jpg" alt="logo" />
+          <img src="../images/merit.jpg" alt="logo" />
         </Dialog>
       </Box>
 
@@ -59,11 +59,18 @@ export default function Formthree() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          width: "100%",
+          width: {
+            xs: "100%", // 100% width when extra small screen
+            sm: "50%", // 50% width when small screen
+            md: "50%", // 50% width when medium screen
+            lg: "100%", // 50% width when large screen
+            xl: "100%", // 50% width when extra large screen
+          
+          },
           height: "100%",
         }}
       >
-        <img src="../src/assets/img/grphead1.png" alt="logo" />
+        <img src="../images/grphead1.png" alt="logo" />
       </Box>
 
       <Box

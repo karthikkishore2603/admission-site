@@ -1,0 +1,20 @@
+.responsive-image {
+    width: 100%; /* Set the initial width to 100% of its container */
+    height: auto; /* Allow the height to adjust proportionally */
+  
+    /* Define additional styles as needed */
+  }
+  
+  /* Define media queries to adjust the image size based on viewport size */
+  @media screen and (max-width: 768px) {
+    .responsive-image {
+      max-width: 100%; /* Set a maximum width for smaller screens */
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .responsive-image {
+      max-width: 60%; /* Set a smaller maximum width for larger screens */
+    }
+  }
+  

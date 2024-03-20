@@ -97,18 +97,14 @@ export default function Form1() {
   });
 
 
-  const handleChange = (event) => {
-
-    
+  const handleChange = (event) => {    
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
 
-    console.log(formData);
-
-    
+    console.log(formData);  
 
   };
 
@@ -127,7 +123,7 @@ export default function Form1() {
           width: "100%",
         }}
       >
-        <img src="../src/assets/img/grphead1.png" alt="logo" />
+        <img src="../images/grphead1.png" alt="logo" />
       </Box>
       <form onSubmit={handleFormSubmit}>
         <Box
