@@ -96,16 +96,14 @@ export default function Form1() {
     category: "",
   });
 
-
-  const handleChange = (event) => {    
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
 
-    console.log(formData);  
-
+    console.log(formData);
   };
 
   const handleFormSubmit = () => {

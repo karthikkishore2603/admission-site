@@ -1,5 +1,6 @@
 // import React from "react";
 import { useState } from "react";
+import axios from "axios";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -31,17 +32,10 @@ export default function Formthree() {
     schoolname: "",
     schoolcode: "",
     regno: "",
+    tentativecutoff: "",
     category: "",
     scholarship: "",
   });
-
-  const [category, setcategory] = useState("");
-
-  const handleChangecategory = (event: { target: { value: any; }; }) => {
-    const category = event.target.value;
-    setcategory(category);
-    
-  };
 
   const handleChange = (event: { target: { name: any; value: any } }) => {
     const { name, value } = event.target;
@@ -53,11 +47,24 @@ export default function Formthree() {
     // console.log(formData);
   };
 
-  const handleFormSubmit = () => {
-    console.log(formData);
-  }
+  const handleFormSubmit = async () => {
+    // console.log(formData);
 
-  
+    console.log(formData);
+    const formJson = Object.fromEntries(Object.entries(formData));
+    try {
+      console.log("Form submitted:", formJson);
+      await axios.post("http://localhost:5000/api/formone", formJson, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      alert("Form submitted successfully!");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error submitting form:ccc", error);
+    }
+  };
 
   return (
     <>
@@ -283,6 +290,34 @@ export default function Formthree() {
             }}
           />
 
+          <FormControl 
+          sx={{
+            width: "70%",
+            marginBottom: "20px",
+          }}>
+            <InputLabel id="outlined-basic">Tentative Cut-off</InputLabel>
+            <Select
+              // labelId="cutoff-label"
+              id="outlined-basic"
+              name="tentativecutoff"
+              value={formData.tentativecutoff}
+              onChange={handleChange}
+              sx={{
+                width: "100%",
+                marginBottom: "10px",
+              }}
+            >
+              <MenuItem value="<150">&lt;150</MenuItem>
+              <MenuItem value="150-160">150-160</MenuItem>
+              <MenuItem value="160-170">160-170</MenuItem>
+              <MenuItem value="170-180">170-180</MenuItem>
+              <MenuItem value="180-190">180-190</MenuItem>
+              <MenuItem value="190-195">190-195</MenuItem>
+              <MenuItem value=">195">{">"}195</MenuItem>
+              {/* Add more options as needed */}
+            </Select>
+          </FormControl>
+
           <FormControl
             sx={{
               width: "70%",
@@ -294,8 +329,8 @@ export default function Formthree() {
               labelId="demo-simple-select-label1"
               id="demo-simple-select"
               label="Board of Study"
-              value={category}
-              onChange={handleChangecategory}
+              value={formData.category}
+              onChange={handleChange}
               name="category"
               sx={{
                 width: "100%",
@@ -310,27 +345,15 @@ export default function Formthree() {
               <MenuItem value="sc">SC</MenuItem>
               <MenuItem value="st">ST</MenuItem>
               <MenuItem value="oc">OC</MenuItem>
-              <MenuItem value="other">Other</MenuItem>
+              <MenuItem value="general">General</MenuItem>
             </Select>
-            {category === "other" && (
-              <TextField
-                sx={{
-                  width: "100%",
-                  paddingBottom: "20px",
-                }}
-                label="Enter Other Value"
-                value={formData.category}
-                onChange={handleChange}
-                name="category"
-              />
-            )}
           </FormControl>
 
           <FormControl
             sx={{
               width: {
                 xs: "85%",
-                sm: "70%", 
+                sm: "70%",
               },
               marginBottom: "20px",
             }}
@@ -343,7 +366,6 @@ export default function Formthree() {
               name="scholarship"
               value={formData.scholarship}
               onChange={handleChange}
-
               sx={{
                 width: "100%",
                 marginBottom: "20px",
@@ -354,7 +376,9 @@ export default function Formthree() {
             </Select>
           </FormControl>
 
-          <Button variant="contained" onClick={handleFormSubmit}>Submit</Button>
+          <Button variant="contained" onClick={handleFormSubmit}>
+            Submit
+          </Button>
         </Box>
       </form>
     </>
