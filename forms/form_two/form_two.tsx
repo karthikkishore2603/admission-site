@@ -94,9 +94,6 @@ export default function Form1() {
       ...prevFormData,
       [name]: value,
     }));
-
-    
-
   };
 
   const handleFormSubmit = () => {
@@ -153,6 +150,26 @@ export default function Form1() {
 
           <TextField
             id="outlined-basic"
+            label="DOB"
+            type="date"
+            variant="outlined"
+            value={formData.dob}
+            name="dob"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            InputProps={{
+              style: { color: "#6B6A6A" },
+            }}
+            onChange={handleChange}
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
             label="School Name"
             variant="outlined"
             value={formData.schoolname}
@@ -166,100 +183,11 @@ export default function Form1() {
 
           <TextField
             id="outlined-basic"
-            label="District"
-            variant="outlined"
-            value={formData.district}
-            onChange={handleChange}
-            name="district"
-            sx={{
-              width: "70%",
-              paddingBottom: "20px",
-            }}
-          />
-
-          <FormControl
-            sx={{
-              width: "70%",
-              marginBottom: "20px",
-            }}
-          >
-            <InputLabel>Enquiry Through</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Enquiry Through"
-              value={formData.enquirythrough}
-              onChange={handleChange}
-              name="enquirythrough"
-              sx={{
-                width: "100%",
-                marginBottom: "20px",
-              }}
-            >
-              <MenuItem value="parents">Parents</MenuItem>
-              <MenuItem value="sibilings">Sibilings</MenuItem>
-              <MenuItem value="relativeandfriends">
-                Relative And Friends
-              </MenuItem>
-              <MenuItem value="alumini">Alumini</MenuItem>
-              <MenuItem value="collegewebsite">College Website</MenuItem>
-              <MenuItem value="socialmedia">Social Media</MenuItem>
-              <MenuItem value="other">Other</MenuItem>
-            </Select>
-            {enquiry === "other" && (
-              <TextField
-                sx={{
-                  width: "70%",
-                  paddingBottom: "20px",
-                }}
-                label="Enter Other Value"
-                name="enquirythrough"
-                value={formData.enquirythrough}
-                onChange={handleChange}
-              />
-            )}
-          </FormControl>
-
-          <TextField
-            id="outlined-basic"
-            label="Reg No"
+            label="School Reg No"
             variant="outlined"
             value={formData.regno}
             name="regno"
             onChange={handleChange}
-            sx={{
-              width: "70%",
-              paddingBottom: "20px",
-            }}
-          />
-
-<TextField
-      id="outlined-basic"
-      label="DOB"
-      type="date"
-      variant="outlined"
-      value={formData.dob}
-      name="dob"
-      InputLabelProps={{
-        shrink: true,
-      }}
-      InputProps={{
-        style: { color: "#6B6A6A" }, 
-      }}
-      onChange={handleChange} 
-      sx={{
-        width: "70%",
-        paddingBottom: "20px",
-      }}
-    />
-
-          <TextField
-            id="outlined-basic"
-            label="Tentative Cut Off"
-            variant="outlined"
-            value={formData.tentativecutoff}
-            onChange={handleChange}
-            name="tentativecutoff"
             sx={{
               width: "70%",
               paddingBottom: "20px",
@@ -299,6 +227,181 @@ export default function Form1() {
                 value={formData.boardofstudy}
                 onChange={handleChange}
                 name="boardofstudy"
+              />
+            )}
+          </FormControl>
+
+          <TextField
+            id="outlined-basic"
+            label="Tentative Cut Off"
+            variant="outlined"
+            value={formData.tentativecutoff}
+            onChange={handleChange}
+            name="tentativecutoff"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="Father Name"
+            variant="outlined"
+            onChange={handleChange}
+            name="fathername"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Father Occupation"
+            variant="outlined"
+            onChange={handleChange}
+            name="fatheroccupation"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="Father Work Place"
+            variant="outlined"
+            onChange={handleChange}
+            name="fatherworkplace"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="Father Phone No"
+            variant="outlined"
+            onChange={handleChange}
+            name="fatherphoneno"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="Mother Name"
+            variant="outlined"
+            onChange={handleChange}
+            name="mothername"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Mother Occupation"
+            variant="outlined"
+            onChange={handleChange}
+            name="motheroccupation"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="Mother Work Place"
+            variant="outlined"
+            onChange={handleChange}
+            name="motherworkplace"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="Mother Phone No"
+            variant="outlined"
+            onChange={handleChange}
+            name="motherphoneno"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-multiline-flexible"
+            label="Address for Communication"
+            name="address"
+            multiline
+            maxRows={4}
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="District"
+            variant="outlined"
+            value={formData.district}
+            onChange={handleChange}
+            name="district"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <FormControl
+            sx={{
+              width: "70%",
+              marginBottom: "20px",
+            }}
+          >
+            <InputLabel>Enquiry Through</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Enquiry Through"
+              value={formData.enquirythrough}
+              onChange={handleChangeenquiry}
+              name="enquirythrough"
+              sx={{
+                width: "100%",
+                marginBottom: "20px",
+              }}
+            >
+              <MenuItem value="parents">Parents</MenuItem>
+              <MenuItem value="sibilings">Sibilings</MenuItem>
+              <MenuItem value="relativeandfriends">
+                Relative And Friends
+              </MenuItem>
+              <MenuItem value="alumini">Alumini</MenuItem>
+              <MenuItem value="collegewebsite">College Website</MenuItem>
+              <MenuItem value="socialmedia">Social Media</MenuItem>
+              <MenuItem value="other">Other</MenuItem>
+            </Select>
+            {enquiry === "other" && (
+              <TextField
+                sx={{
+                  width: "70%",
+                  paddingBottom: "20px",
+                }}
+                label="Enter Other Value"
+                name="enquirythrough"
+                value={formData.enquirythrough}
+                onChange={handleChange}
               />
             )}
           </FormControl>
@@ -383,7 +486,7 @@ export default function Form1() {
               id="demo-simple-select"
               label="Board of Study"
               value={formData.category}
-              onChange={handleChange}
+              onChange={handleChangecategory}
               name="category"
               sx={{
                 width: "100%",
