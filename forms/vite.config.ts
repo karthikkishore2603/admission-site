@@ -10,7 +10,7 @@ export default defineConfig({
         main: resolve(__dirname, "index.html"),
         form_one: resolve(__dirname, "formone/index.html"),
         form_two: resolve(__dirname, "form_two/index.html"),
-       
+        form_three: resolve(__dirname, "form_three/index.html"),
         
       },
     },

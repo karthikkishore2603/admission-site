@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Button from "@mui/material/Button";
-
+import DatePicker from "@mui/lab/DatePicker";
 export default function Form1() {
   const [enquiry, setenquiry] = useState("");
   const [otherenquiry, setOtherenquiry] = useState("");
@@ -73,6 +73,37 @@ export default function Form1() {
   const handleOthercategoryChange = (event) => {
     setOtherenquiry(event.target.value);
   };
+
+  const [formData, setFormData] = useState({
+    name: "",
+    schoolname: "",
+    district: "",
+    enquirythrough: "",
+    regno: "",
+    dob: "",
+    tentativecutoff: "",
+    boardofstudy: "",
+    college: "",
+    course: "",
+    category: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+
+    
+
+  };
+
+  const handleFormSubmit = () => {
+    console.log(formData);
+    // You can perform additional actions here, such as sending the data to a backend server
+  };
+
   return (
     <>
       <Box
@@ -85,275 +116,309 @@ export default function Form1() {
       >
         <img src="../src/assets/img/grphead1.png" alt="logo" />
       </Box>
-
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        <Typography
-          variant="h4"
-          align="center"
+      <form onSubmit={handleFormSubmit}>
+        <Box
           sx={{
-            marginTop: "20px",
-            paddingBottom: "20px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
           }}
         >
-          Admission Enquiry
-        </Typography>
-
-        <TextField
-          id="outlined-basic"
-          label="Name"
-          variant="outlined"
-          sx={{
-            width: "70%",
-            paddingBottom: "20px",
-          }}
-        />
-
-        <TextField
-          id="outlined-basic"
-          label="School Name"
-          variant="outlined"
-          sx={{
-            width: "70%",
-            paddingBottom: "20px",
-          }}
-        />
-
-        <TextField
-          id="outlined-basic"
-          label="District"
-          variant="outlined"
-          sx={{
-            width: "70%",
-            paddingBottom: "20px",
-          }}
-        />
-
-        <FormControl
-          sx={{
-            width: "70%",
-            marginBottom: "20px",
-          }}
-        >
-          <InputLabel>Enquiry Through</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Enquiry Through"
-            value={enquiry}
-            onChange={handleChangeenquiry}
+          <Typography
+            variant="h4"
+            align="center"
             sx={{
-              width: "100%",
+              marginTop: "20px",
+              paddingBottom: "20px",
+            }}
+          >
+            Admission Enquiry
+          </Typography>
+
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            value={formData.name}
+            variant="outlined"
+            name="name"
+            onChange={handleChange}
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="School Name"
+            variant="outlined"
+            value={formData.schoolname}
+            name="schoolname"
+            onChange={handleChange}
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="District"
+            variant="outlined"
+            value={formData.district}
+            onChange={handleChange}
+            name="district"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <FormControl
+            sx={{
+              width: "70%",
               marginBottom: "20px",
             }}
           >
-            <MenuItem value="parents">Parents</MenuItem>
-            <MenuItem value="sibilings">Sibilings</MenuItem>
-            <MenuItem value="relativeandfriends">Relative And Friends</MenuItem>
-            <MenuItem value="alumini">Alumini</MenuItem>
-            <MenuItem value="collegewebsite">College Website</MenuItem>
-            <MenuItem value="socialmedia">Social Media</MenuItem>
-            <MenuItem value="other">Other</MenuItem>
-          </Select>
-          {enquiry === "other" && (
-            <TextField
-              sx={{
-                width: "70%",
-                paddingBottom: "20px",
-              }}
-              label="Enter Other Value"
-              value={otherenquiry}
-              onChange={handleOtherenquiryChange}
-            />
-          )}
-        </FormControl>
-
-        <TextField
-          id="outlined-basic"
-          label="Reg No"
-          variant="outlined"
-          sx={{
-            width: "70%",
-            paddingBottom: "20px",
-          }}
-        />
-
-        <TextField
-          id="outlined-basic"
-          label="DOB"
-          type="date"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          InputProps={{
-            style: { color: '#a6a6a6' }, // Light color for placeholder text
-          }}
-          sx={{
-            width: "70%",
-            paddingBottom: "20px",
-          }}
-        />
-
-        <TextField
-          id="outlined-basic"
-          label="Tentative Cut Off"
-          variant="outlined"
-          sx={{
-            width: "70%",
-            paddingBottom: "20px",
-          }}
-        />
-
-        <FormControl
-          sx={{
-            width: "70%",
-            marginBottom: "20px",
-          }}
-        >
-          <InputLabel>Board of Study</InputLabel>
-          <Select
-            labelId="demo-simple-select-label1"
-            id="demo-simple-select"
-            label="Board of Study"
-            value={board}
-            onChange={handleChangeboard}
-            sx={{
-              width: "100%",
-              marginBottom: "20px",
-            }}
-          >
-            <MenuItem value="cbse">CBSE</MenuItem>
-            <MenuItem value="stateboard">Stateboard</MenuItem>
-            <MenuItem value="other">Other</MenuItem>
-          </Select>
-          {board === "other" && (
-            <TextField
-              sx={{
-                width: "70%",
-                paddingBottom: "20px",
-              }}
-              label="Enter Other Value"
-              value={otherboard}
-              onChange={handleOtherboardChange}
-            />
-          )}
-        </FormControl>
-
-        <FormControl
-          sx={{
-            width: "70%",
-            marginBottom: "20px",
-          }}
-        >
-          <InputLabel>Select College</InputLabel>
-          <Select
-            labelId="demo-simple-select-label1"
-            id="demo-simple-select"
-            label="Board of Study"
-            value={college}
-            onChange={handleChangecollege}
-            sx={{
-              width: "100%",
-              marginBottom: "20px",
-            }}
-          >
-            <MenuItem value="sjce">SJCE</MenuItem>
-            <MenuItem value="sjit">SJIT</MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl
-          sx={{
-            width: "70%",
-            marginBottom: "20px",
-          }}
-        >
-          <InputLabel>Select Course</InputLabel>
-          <Select
-            labelId="demo-simple-select-label1"
-            id="demo-simple-select"
-            label="Board of Study"
-            value={course}
-            onChange={handleChangecourse}
-            sx={{
-              width: "100%",
-              marginBottom: "20px",
-            }}
-          >
-            <MenuItem value="CSE">Computer Science Engineering (CSE)</MenuItem>
-            <MenuItem value="IT">Information Technology (IT)</MenuItem>
-            <MenuItem value="ADS">Advanced Data Science (ADS)</MenuItem>
-            <MenuItem value="AML">
-              Artificial Intelligence and Machine Learning(AML)
-            </MenuItem>
-            <MenuItem value="ECE">
-              Electronics and Communications Engineering(ECE)
-            </MenuItem>
-            <MenuItem value="EEE">
-              Electrical and Electronics Engineering(EEE)
-            </MenuItem>
-            <MenuItem value="Mech">Mechanical Engineering(Mech)</MenuItem>
-            <MenuItem value="Chem">Chemical Engineering(Chem)</MenuItem>
-            <MenuItem value="BioTech">
-              BioTechnology Engineering(BioTech)
-            </MenuItem>
-            <MenuItem value="MBA">
-              Master of Business Administration(MBA)
-            </MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl 
-        sx={{
-          width: "70%",
-          marginBottom: "20px",
-        }}>
-          <InputLabel>Category</InputLabel>
-          <Select
-            labelId="demo-simple-select-label1"
-            id="demo-simple-select"
-            label="Board of Study"
-            value={category}
-            onChange={handleChangecategory}
-            sx={{
-              width: "100%",
-              marginBottom: "20px",
-            }}
-          >
-            <MenuItem value="bc">BC</MenuItem>
-            <MenuItem value="stateboard">BCM</MenuItem>
-            <MenuItem value="stateboard">MBC</MenuItem>
-            <MenuItem value="stateboard">BCM</MenuItem>
-            <MenuItem value="stateboard">SCA</MenuItem>
-            <MenuItem value="stateboard">SC</MenuItem>
-            <MenuItem value="stateboard">ST</MenuItem>
-            <MenuItem value="stateboard">OC</MenuItem>
-            <MenuItem value="other">Other</MenuItem>
-          </Select>
-          {category === "other" && (
-            <TextField
+            <InputLabel>Enquiry Through</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Enquiry Through"
+              value={formData.enquirythrough}
+              onChange={handleChange}
+              name="enquirythrough"
               sx={{
                 width: "100%",
-                paddingBottom: "20px",
+                marginBottom: "20px",
               }}
-              label="Enter Other Value"
-              value={othercategory}
-              onChange={handleOthercategoryChange}
-            />
-          )}
-        </FormControl>
+            >
+              <MenuItem value="parents">Parents</MenuItem>
+              <MenuItem value="sibilings">Sibilings</MenuItem>
+              <MenuItem value="relativeandfriends">
+                Relative And Friends
+              </MenuItem>
+              <MenuItem value="alumini">Alumini</MenuItem>
+              <MenuItem value="collegewebsite">College Website</MenuItem>
+              <MenuItem value="socialmedia">Social Media</MenuItem>
+              <MenuItem value="other">Other</MenuItem>
+            </Select>
+            {enquiry === "other" && (
+              <TextField
+                sx={{
+                  width: "70%",
+                  paddingBottom: "20px",
+                }}
+                label="Enter Other Value"
+                name="enquirythrough"
+                value={formData.enquirythrough}
+                onChange={handleChange}
+              />
+            )}
+          </FormControl>
 
-        <Button variant="contained">Submit</Button>
-      </Box>
+          <TextField
+            id="outlined-basic"
+            label="Reg No"
+            variant="outlined"
+            value={formData.regno}
+            name="regno"
+            onChange={handleChange}
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+<TextField
+      id="outlined-basic"
+      label="DOB"
+      type="date"
+      variant="outlined"
+      value={formData.dob}
+      name="dob"
+      InputLabelProps={{
+        shrink: true,
+      }}
+      InputProps={{
+        style: { color: "#6B6A6A" }, 
+      }}
+      onChange={handleChange} 
+      sx={{
+        width: "70%",
+        paddingBottom: "20px",
+      }}
+    />
+
+          <TextField
+            id="outlined-basic"
+            label="Tentative Cut Off"
+            variant="outlined"
+            value={formData.tentativecutoff}
+            onChange={handleChange}
+            name="tentativecutoff"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <FormControl
+            sx={{
+              width: "70%",
+              marginBottom: "20px",
+            }}
+          >
+            <InputLabel>Board of Study</InputLabel>
+            <Select
+              labelId="demo-simple-select-label1"
+              id="demo-simple-select"
+              label="Board of Study"
+              value={formData.boardofstudy}
+              onChange={handleChangeboard}
+              name="boardofstudy"
+              sx={{
+                width: "100%",
+                marginBottom: "20px",
+              }}
+            >
+              <MenuItem value="cbse">CBSE</MenuItem>
+              <MenuItem value="stateboard">Stateboard</MenuItem>
+              <MenuItem value="other">Other</MenuItem>
+            </Select>
+            {board === "other" && (
+              <TextField
+                sx={{
+                  width: "100%",
+                  paddingBottom: "20px",
+                }}
+                label="Enter Other Value"
+                value={formData.boardofstudy}
+                onChange={handleChange}
+                name="boardofstudy"
+              />
+            )}
+          </FormControl>
+
+          <FormControl
+            sx={{
+              width: "70%",
+              marginBottom: "20px",
+            }}
+          >
+            <InputLabel>Select College</InputLabel>
+            <Select
+              labelId="demo-simple-select-label1"
+              id="demo-simple-select"
+              label="Select College"
+              value={formData.college}
+              onChange={handleChange}
+              name="college"
+              sx={{
+                width: "100%",
+                marginBottom: "20px",
+              }}
+            >
+              <MenuItem value="sjce">SJCE</MenuItem>
+              <MenuItem value="sjit">SJIT</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl
+            sx={{
+              width: "70%",
+              marginBottom: "20px",
+            }}
+          >
+            <InputLabel>Select Course</InputLabel>
+            <Select
+              labelId="demo-simple-select-label1"
+              id="demo-simple-select"
+              label="Board of Study"
+              value={formData.course}
+              onChange={handleChange}
+              name="course"
+              sx={{
+                width: "100%",
+                marginBottom: "20px",
+              }}
+            >
+              <MenuItem value="CSE">
+                Computer Science Engineering (CSE)
+              </MenuItem>
+              <MenuItem value="IT">Information Technology (IT)</MenuItem>
+              <MenuItem value="ADS">Advanced Data Science (ADS)</MenuItem>
+              <MenuItem value="AML">
+                Artificial Intelligence and Machine Learning(AML)
+              </MenuItem>
+              <MenuItem value="ECE">
+                Electronics and Communications Engineering(ECE)
+              </MenuItem>
+              <MenuItem value="EEE">
+                Electrical and Electronics Engineering(EEE)
+              </MenuItem>
+              <MenuItem value="Mech">Mechanical Engineering(Mech)</MenuItem>
+              <MenuItem value="Chem">Chemical Engineering(Chem)</MenuItem>
+              <MenuItem value="BioTech">
+                BioTechnology Engineering(BioTech)
+              </MenuItem>
+              <MenuItem value="MBA">
+                Master of Business Administration(MBA)
+              </MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl
+            sx={{
+              width: "70%",
+              marginBottom: "20px",
+            }}
+          >
+            <InputLabel>Category</InputLabel>
+            <Select
+              labelId="demo-simple-select-label1"
+              id="demo-simple-select"
+              label="Board of Study"
+              value={formData.category}
+              onChange={handleChange}
+              name="category"
+              sx={{
+                width: "100%",
+                marginBottom: "20px",
+              }}
+            >
+              <MenuItem value="bc">BC</MenuItem>
+              <MenuItem value="bcm">BCM</MenuItem>
+              <MenuItem value="mbc">MBC</MenuItem>
+              <MenuItem value="bcm">BCM</MenuItem>
+              <MenuItem value="sca">SCA</MenuItem>
+              <MenuItem value="sc">SC</MenuItem>
+              <MenuItem value="st">ST</MenuItem>
+              <MenuItem value="oc">OC</MenuItem>
+              <MenuItem value="other">Other</MenuItem>
+            </Select>
+            {category === "other" && (
+              <TextField
+                sx={{
+                  width: "100%",
+                  paddingBottom: "20px",
+                }}
+                label="Enter Other Value"
+                value={formData.category}
+                onChange={handleChange}
+                name="category"
+              />
+            )}
+          </FormControl>
+
+          <Button variant="contained" onClick={handleFormSubmit}>
+            Submit
+          </Button>
+        </Box>
+      </form>
     </>
   );
 }
