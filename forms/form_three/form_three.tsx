@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -6,16 +7,60 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+
+import { Dialog, DialogContent } from "@mui/material";
 
 export default function Formthree() {
+  const [open, setOpen] = useState(true);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [category, setcategory] = useState("");
+  const [othercategory, setOthercategory] = useState("");
+
+  const handleChangecategory = (event) => {
+    const category = event.target.value;
+    setcategory(category);
+    // If "Other" is selected, clear the other value
+    if (category !== "other") {
+      setOthercategory("");
+    }
+  };
+
   return (
     <>
+      <Box>
+        <Dialog
+          open={open}
+          onClick={handleClose}
+          fullWidth // Make dialog take full width
+          maxWidth="md" // Set maximum width of the dialog
+          sx={{
+            // Customize dialog size
+            "& .MuiDialog-paper": {
+              width: "100%",
+              maxWidth: "750px",
+              maxHeight: "auto", // Set custom maximum width
+            },
+          }}
+        >
+          <img src="../src/assets/img/merit.jpg" alt="logo" />
+        </Dialog>
+      </Box>
+
       <Box
         sx={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
+          height: "100%",
         }}
       >
         <img src="../src/assets/img/grphead1.png" alt="logo" />
@@ -130,77 +175,67 @@ export default function Formthree() {
         />
 
         <FormControl
+          sx={{
+            width: "70%",
+            marginBottom: "20px",
+          }}
+        >
+          <InputLabel>Category</InputLabel>
+          <Select
+            labelId="demo-simple-select-label1"
+            id="demo-simple-select"
+            label="category"
+            name="category"
             sx={{
-              width: "70%",
+              width: "100%",
               marginBottom: "20px",
             }}
           >
-            <InputLabel>Category</InputLabel>
-            <Select
-              labelId="demo-simple-select-label1"
-              id="demo-simple-select"
-              label="category"
-              value={formData.category}
-              onChange={handleChange}
-              name="category"
+            <MenuItem value="bc">BC</MenuItem>
+            <MenuItem value="bcm">BCM</MenuItem>
+            <MenuItem value="mbc">MBC</MenuItem>
+            <MenuItem value="bcm">BCM</MenuItem>
+            <MenuItem value="sca">SCA</MenuItem>
+            <MenuItem value="sc">SC</MenuItem>
+            <MenuItem value="st">ST</MenuItem>
+            <MenuItem value="oc">OC</MenuItem>
+            <MenuItem value="other">Other</MenuItem>
+          </Select>
+          {category === "other" && (
+            <TextField
               sx={{
                 width: "100%",
-                marginBottom: "20px",
+                paddingBottom: "20px",
               }}
-            >
-              <MenuItem value="bc">BC</MenuItem>
-              <MenuItem value="bcm">BCM</MenuItem>
-              <MenuItem value="mbc">MBC</MenuItem>
-              <MenuItem value="bcm">BCM</MenuItem>
-              <MenuItem value="sca">SCA</MenuItem>
-              <MenuItem value="sc">SC</MenuItem>
-              <MenuItem value="st">ST</MenuItem>
-              <MenuItem value="oc">OC</MenuItem>
-              <MenuItem value="other">Other</MenuItem>
-            </Select>
-            {category === "other" && (
-              <TextField
-                sx={{
-                  width: "100%",
-                  paddingBottom: "20px",
-                }}
-                label="Enter Other Value"
-                value={formData.category}
-                onChange={handleChange}
-                name="category"
-              />
-            )}
+              label="Enter Other Value"
+              name="category"
+            />
+          )}
         </FormControl>
 
         <FormControl
+          sx={{
+            width: "70%",
+            marginBottom: "20px",
+          }}
+        >
+          <InputLabel>Willing to avail merit scholarship?</InputLabel>
+          <Select
+            labelId="scholarship"
+            id="scholarship"
+            label="scholarship"
+            name="scholarship"
             sx={{
-              width: "70%",
+              width: "100%",
               marginBottom: "20px",
             }}
           >
-            <InputLabel>Willing to avail merit scholarship?</InputLabel>
-            <Select
-              labelId="scholarship"
-              id="scholarship"
-              label="scholarship"
-              value={formData.category}
-              onChange={handleChange}
-              name="scholarship"
-              sx={{
-                width: "100%",
-                marginBottom: "20px",
-              }}
-            >
-              <MenuItem value="yes">Yes</MenuItem>
-              <MenuItem value="no">No</MenuItem>
-            </Select>
-        </FormControl>  
+            <MenuItem value="yes">Yes</MenuItem>
+            <MenuItem value="no">No</MenuItem>
+          </Select>
+        </FormControl>
 
-        <Button variant="contained" onClick={handleFormSubmit}>
-            Submit
-        </Button>
-
-
+        <Button variant="contained">Submit</Button>
       </Box>
     </>
   );

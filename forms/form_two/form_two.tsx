@@ -82,18 +82,34 @@ export default function Form1() {
     regno: "",
     dob: "",
     tentativecutoff: "",
+    tenthmarktotal: "",
+    tenthmarkscored: "",
+    tenthpercentage: "",
+    fathername: "",
+    fatheroccupation: "",
+    fatherworkplace: "",
+    fatherphoneno: "",
+    mothername: "",
     boardofstudy: "",
     college: "",
     course: "",
     category: "",
   });
 
+
   const handleChange = (event) => {
+
+    
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
+
+    console.log(formData);
+
+    
+
   };
 
   const handleFormSubmit = () => {
@@ -238,6 +254,45 @@ export default function Form1() {
             value={formData.tentativecutoff}
             onChange={handleChange}
             name="tentativecutoff"
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="10th Mark Total"
+            variant="outlined"
+            onChange={handleChange}
+            name="tenthmarktotal"
+            value={formData.tenthmarktotal}
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="10th Mark Scored"
+            variant="outlined"
+            onChange={handleChange}
+            name="tenthmarkscored"
+            value={formData.tenthmarkscored}
+            sx={{
+              width: "70%",
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="10th Percentage"
+            variant="outlined"
+            onChange={handleChange}
+            name="tenthpercentage"
+            value={formData.tenthpercentage}
             sx={{
               width: "70%",
               paddingBottom: "20px",
