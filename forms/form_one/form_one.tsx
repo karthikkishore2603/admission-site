@@ -240,6 +240,10 @@ export default function FormDialog() {
               <MenuItem value="<150">&lt;150</MenuItem>
               <MenuItem value="150-160">150-160</MenuItem>
               <MenuItem value="160-170">160-170</MenuItem>
+              <MenuItem value="170-180">170-180</MenuItem>
+              <MenuItem value="180-190">180-190</MenuItem>
+              <MenuItem value="190-195">190-195</MenuItem>
+              <MenuItem value=">195">{'>'}195</MenuItem>
               {/* Add more options as needed */}
             </Select>
           </FormControl>
