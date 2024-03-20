@@ -97,11 +97,11 @@ export default function FormDialog() {
             autoFocus
             required
             margin="dense"
-            id="name"
+            id="outlined-basic"
             name="name"
             label="Name"
             fullWidth
-            variant="standard"
+            variant="outlined"
             placeholder={!touchedFields.name ? "Enter your name" : ""}
             onFocus={() => handleFieldFocus("name")}
             onBlur={() => handleFieldBlur("name")}
@@ -111,8 +111,8 @@ export default function FormDialog() {
   <TextField
     required
     margin="dense"
-    id="dob"
-    label="Date of Birth"
+    id="outlined-basic"
+    label="Date Of Birth"
     type="date"
     variant="outlined"
     fullWidth
@@ -134,12 +134,12 @@ export default function FormDialog() {
           <TextField
             required
             margin="dense"
-            id="email"
+            id="outlined-basic"
             name="email"
             label="Email Address"
             type="email"
             fullWidth
-            variant="standard"
+            variant="outlined"
             error={emailError}
             helperText={emailError ? "Please enter a valid email address" : ""}
             placeholder={!touchedFields.email ? "Enter your email address" : ""}
@@ -149,12 +149,12 @@ export default function FormDialog() {
           <TextField
             required
             margin="dense"
-            id="phone"
+            id="outlined-basic"
             name="phone"
             label="Phone Number"
             type="tel"
             fullWidth
-            variant="standard"
+            variant="outlined"
             error={phoneError}
             helperText={phoneError ? "Please enter a valid phone number" : ""}
             placeholder={!touchedFields.phone ? "Enter your phone number" : ""}
@@ -164,12 +164,12 @@ export default function FormDialog() {
           <TextField
             required
             margin="dense"
-            id="registerNumber"
+            id="outlined-basic"
             name="registerNumber"
             label="Register Number"
             type="number"
             fullWidth
-            variant="standard"
+            variant="outlined"
             error={registerError}
             helperText={
               registerError ? "Please enter a valid register number" : ""
@@ -186,28 +186,28 @@ export default function FormDialog() {
             <InputLabel id="course-label">Course</InputLabel>
             <Select
               labelId="course-label"
-              id="course"
+              id="outlined-basic"
               name="course"
               value={course}
               onChange={handleCourseChange}
-              MenuProps={{
-                anchorOrigin: {
-                  vertical: "bottom",
-                  horizontal: "left",
-                },
-                MenuListProps: {
-                  style: {
-                    top: "unset",
-                  },
-                },
-              }}
+              // MenuProps={{
+              //   anchorOrigin: {
+              //     vertical: "bottom",
+              //     horizontal: "left",
+              //   },
+              //   MenuListProps: {
+              //     style: {
+              //       top: "unset",
+              //     },
+              //   },
+              // }}
               placeholder="Select your course"
             >
               <MenuItem value="CSE">
                 Computer Science Engineering (CSE)
               </MenuItem>
               <MenuItem value="IT">Information Technology (IT)</MenuItem>
-              <MenuItem value="ADS">Advanced Data Science (ADS)</MenuItem>
+              <MenuItem value="ADS">Artificial Intelligence and Data Science (ADS)</MenuItem>
               <MenuItem value="AML">
                 Artificial Intelligence and Machine Learning(AML)
               </MenuItem>
@@ -225,17 +225,18 @@ export default function FormDialog() {
               <MenuItem value="MBA">
                 Master of Business Administration(MBA)
               </MenuItem>
+              <MenuItem value="Int. MBA">Integrated Master of Business Administration(MBA)</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth margin="dense">
-            <InputLabel id="cutoff-label">Tentative Cut-off</InputLabel>
+          <FormControl fullWidth>
+            <InputLabel id="outlined-basic">Tentative Cut-off</InputLabel>
             <Select
-              labelId="cutoff-label"
-              id="tentativeCutoff"
+              // labelId="cutoff-label"
+              id="outlined-basic"
               name="tentativeCutoff"
               value={tentativeCutoff}
               onChange={handleTentativeCutoffChange}
-              placeholder="Select tentative cut-off"
+              // placeholder="Select tentative cut-off"
             >
               <MenuItem value="<150">&lt;150</MenuItem>
               <MenuItem value="150-160">150-160</MenuItem>
@@ -249,11 +250,11 @@ export default function FormDialog() {
           </FormControl>
           <TextField
             margin="dense"
-            id="district"
+            id="outlined-basic"
             name="district"
             label="District"
             fullWidth
-            variant="standard"
+            variant="outlined"
             placeholder="Enter your district"
           />
         </DialogContent>
