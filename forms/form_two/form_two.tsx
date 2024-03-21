@@ -153,7 +153,10 @@ export default function Form1() {
             name="name"
             onChange={handleChange}
             sx={{
-              width: "70%",
+              width: {
+                xs: "85%",
+                sm: "70%",
+              },
               paddingBottom: "20px",
             }}
           />
