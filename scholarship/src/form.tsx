@@ -17,7 +17,6 @@ import "./App.css";
 
 import { submitForm } from "./actions";
 
-
 export default function FormDialog() {
   const [open, setOpen] = React.useState(true);
 
@@ -61,12 +60,12 @@ export default function FormDialog() {
             // Customize dialog size
             "& .MuiDialog-paper": {
               width: "100%",
-              maxWidth: "750px",
+              maxWidth: "700px",
               maxHeight: "auto", // Set custom maximum width
             },
           }}
         >
-          <img src="../images/merit.jpg" alt="logo" />
+          <img src="../images/grphead2.jpg" alt="logo" />
         </Dialog>
       </Box>
       {/* <Button onClick={createPost}>Add Data</Button> */}
@@ -125,7 +124,7 @@ export default function FormDialog() {
 
           <TextField
             id="outlined-multiline-flexible"
-            label="Address for communication"
+            label="Address for Communication"
             variant="outlined"
             multiline
             name="address"
@@ -143,6 +142,22 @@ export default function FormDialog() {
             label="Parent Mail Id"
             variant="outlined"
             name="parentmailid"
+            type="email"
+            sx={{
+              width: {
+                xs: "85%",
+                sm: "70%",
+              },
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="Parent Phone Number"
+            variant="outlined"
+            name="parentphoneno"
+            type="number"
             sx={{
               width: {
                 xs: "85%",
@@ -157,6 +172,7 @@ export default function FormDialog() {
             label="Student Mail Id"
             variant="outlined"
             name="studentmailid"
+            type="email"
             sx={{
               width: {
                 xs: "85%",
@@ -168,23 +184,10 @@ export default function FormDialog() {
 
           <TextField
             id="outlined-basic"
-            label="Parent Phone number"
-            variant="outlined"
-            name="parentphoneno"
-            sx={{
-              width: {
-                xs: "85%",
-                sm: "70%",
-              },
-              paddingBottom: "20px",
-            }}
-          />
-
-          <TextField
-            id="outlined-basic"
-            label="Student Phone number"
+            label="Student Phone Number"
             variant="outlined"
             name="studentphoneno"
+            type="number"
             sx={{
               width: {
                 xs: "85%",
@@ -217,7 +220,7 @@ export default function FormDialog() {
 
           <TextField
             id="outlined-basic"
-            label="Name of school studied"
+            label="Name of School Studied"
             variant="outlined"
             name="schoolname"
             sx={{
@@ -231,7 +234,7 @@ export default function FormDialog() {
 
           <TextField
             id="outlined-basic"
-            label="School code No."
+            label="School Code No."
             variant="outlined"
             name="schoolcode"
             sx={{
@@ -243,6 +246,19 @@ export default function FormDialog() {
             }}
           />
 
+          <TextField
+            id="outlined-basic"
+            label="Place of Study"
+            variant="outlined"
+            name="placeofstudy"
+            sx={{
+              width: {
+                xs: "85%",
+                sm: "70%",
+              },
+              paddingBottom: "20px",
+            }}
+          />
           <FormControl
             sx={{
               width: "70%",
@@ -262,7 +278,8 @@ export default function FormDialog() {
               }}
             >
               <MenuItem value="cbse">CBSE</MenuItem>
-              <MenuItem value="stateboard">Stateboard</MenuItem>
+              <MenuItem value="stateboard">TN State Board</MenuItem>
+              <MenuItem value="cisce">CISCE</MenuItem>
               <MenuItem value="other">Other</MenuItem>
             </Select>
             {board === "other" && (
@@ -279,20 +296,7 @@ export default function FormDialog() {
 
           <TextField
             id="outlined-basic"
-            label="Place Of Study"
-            variant="outlined"
-            name="placeofstudy"
-            sx={{
-              width: {
-                xs: "85%",
-                sm: "70%",
-              },
-              paddingBottom: "20px",
-            }}
-          />
-          <TextField
-            id="outlined-basic"
-            label="12th Exam registration No."
+            label="12th Exam Registration No."
             variant="outlined"
             name="regno"
             sx={{
@@ -310,12 +314,12 @@ export default function FormDialog() {
               marginBottom: "20px",
             }}
           >
-            <InputLabel id="outlined-basic">Tentative Cut-off</InputLabel>
+            <InputLabel id="outlined-basic">Expected Cut-off</InputLabel>
             <Select
               labelId="demo-simple-select-label1"
               id="demo-simple-select"
               name="tentativecutoff"
-              label="Tentative Cut-off"
+              label="Expected Cut-off"
               variant="outlined"
               sx={{
                 width: "100%",
@@ -383,7 +387,7 @@ export default function FormDialog() {
               marginBottom: "20px",
             }}
           >
-            <InputLabel>Willing to avail merit scholarship?</InputLabel>
+            <InputLabel>Willing to Avail Merit Scholarship?</InputLabel>
             <Select
               labelId="scholarship"
               id="demo-simple-select"
@@ -404,6 +408,22 @@ export default function FormDialog() {
           </Button>
         </Box>
       </form>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <br></br>
+        <img
+          src="../images/grphead2.jpg"
+          className="responsive-image"
+          alt="logo"
+        />
+      </Box>
     </React.Fragment>
   );
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -12,6 +12,9 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import Box from "@mui/material/Box";
+
+import { submitForm } from "./actions";
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -46,22 +49,24 @@ export default function FormDialog() {
     setTentativeCutoff(event.target.value);
   };
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit =  (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData.entries());
-    try {
-      console.log("Form submitted:", formJson);
-      await axios.post("http://localhost:5000/api/formone", formJson, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      alert("Form submitted successfully!");
-      handleClose();
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
+    console.log("Form submitted:", formJson);
+    submitForm(formJson);
+    // try {
+    //   console.log("Form submitted:", formJson);
+    //   await axios.post("http://localhost:5000/api/formone", formJson, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   alert("Form submitted successfully!");
+    //   handleClose();
+    // } catch (error) {
+    //   console.error("Error submitting form:", error);
+    // }
   };
 
   const handleFieldFocus = (field) => {
@@ -74,10 +79,37 @@ export default function FormDialog() {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
+
+
+
+
+
+
+<Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          "& .MuiDialog-paper": {
+            width: "50%",
+            maxWidth: "700px",
+            maxHeight: "auto", // Set custom maximum width
+          },
+        }}
+        
+      ><br></br>
+        <img
+          src="../images/grphead2.jpg"
+          className="responsive-image"
+          alt="logo" width={600} 
+        />
+      
+
+      <Button variant="outlined" onClick={handleClickOpen} >
         Enquire Now!
       </Button>
-
+      </Box>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -107,29 +139,28 @@ export default function FormDialog() {
             onBlur={() => handleFieldBlur("name")}
           />
           <FormControl fullWidth>
-  <InputLabel htmlFor="dob"></InputLabel>
-  <TextField
-    required
-    margin="dense"
-    id="outlined-basic"
-    label="Date Of Birth"
-    type="date"
-    variant="outlined"
-    fullWidth
-    InputLabelProps={{
-      shrink: true,
-    }}
-    name="dob"
-    error={dobError}
-    helperText={dobError ? "Please enter a valid date" : ""}
-    onFocus={() => handleFieldFocus("dob")}
-    onBlur={() => handleFieldBlur("dob")}
-    sx={{
-      marginTop: '20px', // Adjust the top margin as needed
-    }}
-  />
-</FormControl>
-
+            <InputLabel htmlFor="dob"></InputLabel>
+            <TextField
+              required
+              margin="dense"
+              id="outlined-basic"
+              label="Date Of Birth"
+              type="date"
+              variant="outlined"
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+              name="dob"
+              error={dobError}
+              helperText={dobError ? "Please enter a valid date" : ""}
+              onFocus={() => handleFieldFocus("dob")}
+              onBlur={() => handleFieldBlur("dob")}
+              sx={{
+                marginTop: "20px", // Adjust the top margin as needed
+              }}
+            />
+          </FormControl>
 
           <TextField
             required
@@ -175,9 +206,7 @@ export default function FormDialog() {
               registerError ? "Please enter a valid register number" : ""
             }
             placeholder={
-              !touchedFields.registerNumber
-                ? "Enter your register number"
-                : ""
+              !touchedFields.registerNumber ? "Enter your register number" : ""
             }
             onFocus={() => handleFieldFocus("registerNumber")}
             onBlur={() => handleFieldBlur("registerNumber")}
@@ -188,6 +217,7 @@ export default function FormDialog() {
               labelId="course-label"
               id="outlined-basic"
               name="course"
+              label="Course"
               value={course}
               onChange={handleCourseChange}
               // MenuProps={{
@@ -207,7 +237,9 @@ export default function FormDialog() {
                 Computer Science Engineering (CSE)
               </MenuItem>
               <MenuItem value="IT">Information Technology (IT)</MenuItem>
-              <MenuItem value="ADS">Artificial Intelligence and Data Science (ADS)</MenuItem>
+              <MenuItem value="ADS">
+                Artificial Intelligence and Data Science (ADS)
+              </MenuItem>
               <MenuItem value="AML">
                 Artificial Intelligence and Machine Learning(AML)
               </MenuItem>
@@ -225,7 +257,9 @@ export default function FormDialog() {
               <MenuItem value="MBA">
                 Master of Business Administration(MBA)
               </MenuItem>
-              <MenuItem value="Int. MBA">Integrated Master of Business Administration(MBA)</MenuItem>
+              <MenuItem value="Int. MBA">
+                Integrated Master of Business Administration(MBA)
+              </MenuItem>
             </Select>
           </FormControl>
           <FormControl fullWidth>
@@ -234,6 +268,7 @@ export default function FormDialog() {
               // labelId="cutoff-label"
               id="outlined-basic"
               name="tentativeCutoff"
+              label="Tentative Cut-off"
               value={tentativeCutoff}
               onChange={handleTentativeCutoffChange}
               // placeholder="Select tentative cut-off"
@@ -244,7 +279,7 @@ export default function FormDialog() {
               <MenuItem value="170-180">170-180</MenuItem>
               <MenuItem value="180-190">180-190</MenuItem>
               <MenuItem value="190-195">190-195</MenuItem>
-              <MenuItem value=">195">{'>'}195</MenuItem>
+              <MenuItem value=">195">{">"}195</MenuItem>
               {/* Add more options as needed */}
             </Select>
           </FormControl>
@@ -263,6 +298,9 @@ export default function FormDialog() {
           <Button type="submit">Submit</Button>
         </DialogActions>
       </Dialog>
+
+      
+
     </React.Fragment>
   );
 }
