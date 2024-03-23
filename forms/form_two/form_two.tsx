@@ -94,6 +94,7 @@ export default function Form1() {
     college: "",
     course: "",
     category: "",
+    
   });
 
   const handleChange = (event) => {
@@ -218,7 +219,7 @@ export default function Form1() {
               labelId="demo-simple-select-label1"
               id="demo-simple-select"
               label="Board of Study"
-              value={formData.boardofstudy}
+              // value={boardofstudy}
               onChange={handleChangeboard}
               name="boardofstudy"
               sx={{
@@ -227,7 +228,8 @@ export default function Form1() {
               }}
             >
               <MenuItem value="cbse">CBSE</MenuItem>
-              <MenuItem value="stateboard">Stateboard</MenuItem>
+              <MenuItem value="stateboard">TN State Board</MenuItem>
+              <MenuItem value="icse">CISCE</MenuItem>
               <MenuItem value="other">Other</MenuItem>
             </Select>
             {board === "other" && (

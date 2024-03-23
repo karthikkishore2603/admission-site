@@ -1,38 +1,19 @@
-.App {
-  text-align: center;
+.responsive-image {
+  width: 100%; /* Set the initial width to 100% of its container */
+  height: auto; /* Allow the height to adjust proportionally */
+
+  /* Define additional styles as needed */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Define media queries to adjust the image size based on viewport size */
+@media screen and (max-width: 768px) {
+  .responsive-image {
+    max-width: 100%; /* Set a maximum width for smaller screens */
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media screen and (min-width: 768px) {
+  .responsive-image {
+    max-width: 60%; /* Set a smaller maximum width for larger screens */
   }
 }

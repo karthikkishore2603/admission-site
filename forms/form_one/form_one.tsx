@@ -30,6 +30,13 @@ export default function FormDialog() {
     dob: false,
   });
 
+  
+  const [district, setdistrict] = useState("");
+  const handleChangedistrict = (event: { target: { name: any; value: any } }) => {
+    const district = event.target.value;
+    setdistrict(district);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -100,9 +107,9 @@ export default function FormDialog() {
         
       ><br></br>
         <img
-          src="../images/grphead2.jpg"
+          src="../images/banner.jpg"
           className="responsive-image"
-          alt="logo" width={600} 
+          alt="logo" width={900} 
         />
       
 
@@ -150,6 +157,9 @@ export default function FormDialog() {
               fullWidth
               InputLabelProps={{
                 shrink: true,
+              }}
+              InputProps={{
+                style: { color: "#6B6A6A" },
               }}
               name="dob"
               error={dobError}
@@ -211,7 +221,9 @@ export default function FormDialog() {
             onFocus={() => handleFieldFocus("registerNumber")}
             onBlur={() => handleFieldBlur("registerNumber")}
           />
-          <FormControl fullWidth margin="dense">
+          <FormControl fullWidth margin="dense" sx={{
+                paddingBottom: "10px",
+              }}>
             <InputLabel id="course-label">Course</InputLabel>
             <Select
               labelId="course-label"
@@ -232,6 +244,7 @@ export default function FormDialog() {
               //   },
               // }}
               placeholder="Select your course"
+              
             >
               <MenuItem value="CSE">
                 Computer Science Engineering (CSE)
@@ -262,13 +275,15 @@ export default function FormDialog() {
               </MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth>
-            <InputLabel id="outlined-basic">Tentative Cut-off</InputLabel>
+          <FormControl fullWidth sx={{
+                paddingBottom: "10px",
+              }}>
+            <InputLabel id="outlined-basic">Expected Cut-off</InputLabel>
             <Select
               // labelId="cutoff-label"
               id="outlined-basic"
               name="tentativeCutoff"
-              label="Tentative Cut-off"
+              label="Expected Cut-off"
               value={tentativeCutoff}
               onChange={handleTentativeCutoffChange}
               // placeholder="Select tentative cut-off"
@@ -283,15 +298,43 @@ export default function FormDialog() {
               {/* Add more options as needed */}
             </Select>
           </FormControl>
-          <TextField
-            margin="dense"
-            id="outlined-basic"
-            name="district"
-            label="District"
-            fullWidth
-            variant="outlined"
-            placeholder="Enter your district"
-          />
+
+
+          <FormControl
+            sx={{
+              width: "70%",
+              marginBottom: "20px",
+            }}
+          >
+            <InputLabel>District of Study</InputLabel>
+            <Select
+              labelId="demo-simple-select-label1"
+              id="demo-simple-select"
+              label="district"
+              name="district"
+              onChange={handleChangedistrict}
+              sx={{
+                width: "100%",
+                marginBottom: "10px",
+              }}
+            >
+              <MenuItem value="cbse">CBSE</MenuItem>
+              <MenuItem value="stateboard">TN State Board</MenuItem>
+              <MenuItem value="cisce">CISCE</MenuItem>
+              <MenuItem value="other">Other</MenuItem>
+            </Select>
+            {district === "other" && (
+              <TextField
+                sx={{
+                  width: "100%",
+                  paddingBottom: "10px",
+                }}
+                label="Enter Other Value"
+                name="boardofstudy"
+              />
+            )}
+          </FormControl>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

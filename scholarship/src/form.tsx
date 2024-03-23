@@ -13,9 +13,28 @@ import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+
+import OutlinedInput from "@mui/material/OutlinedInput";
+import ListItemText from "@mui/material/ListItemText";
+import Checkbox from "@mui/material/Checkbox";
+
 import "./App.css";
 
 import { submitForm } from "./actions";
+import { set } from "zod";
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(true);
@@ -24,13 +43,39 @@ export default function FormDialog() {
     setOpen(false);
   };
 
+  const [error, setError] = useState("");
   const handleFormSubmit = async (event: any) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData.entries());
     console.log("Form submitted:", formJson);
-    submitForm(formJson);
+    if (String(formJson.parentphoneno).length !== 10) { // Fix: Convert the value to a string before checking its length
+      setError("Enter a valid parent phone number");
+      return;
+    }
+    submitForm(formJson);1
+
+    event.target.reset();
+    setboard("");
+    setcategory("");
+    settentativecutoff("");
+    setcourse([]); // Fix: Pass an empty array instead of an empty string
+  };
+
+
+  const [courselist, setcourse] = React.useState<string[]>([]);
+
+  const handleChange = (event: {
+    target: { name: any; value: any };
+  }) => {
+    const {
+      target: { value },
+    } = event;
+    setcourse(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
   };
 
   const [board, setboard] = useState("");
@@ -38,6 +83,13 @@ export default function FormDialog() {
   const handleChangeboard = (event: { target: { name: any; value: any } }) => {
     const board = event.target.value;
     setboard(board);
+  };
+
+  const [tentativecutoff, settentativecutoff] = useState("");
+
+  const handleChangetentativecutoff = (event: { target: { name: any; value: any } }) => {
+    const tentativecutoff = event.target.value;
+    settentativecutoff(tentativecutoff);
   };
 
   const [category, setcategory] = useState("");
@@ -107,6 +159,7 @@ export default function FormDialog() {
 
           <TextField
             autoFocus
+            required
             margin="dense"
             id="outlined-basic"
             name="name"
@@ -125,6 +178,7 @@ export default function FormDialog() {
           <TextField
             id="outlined-multiline-flexible"
             label="Address for Communication"
+            required
             variant="outlined"
             multiline
             name="address"
@@ -137,9 +191,25 @@ export default function FormDialog() {
             }}
           />
 
+            <h1>{error}</h1>
           <TextField
             id="outlined-basic"
-            label="Parent Mail Id"
+            label="Parent Name"
+            required
+            variant="outlined"
+            name="parentname"
+            sx={{
+              width: {
+                xs: "85%",
+                sm: "70%",
+              },
+              paddingBottom: "20px",
+            }}
+          />
+
+          <TextField
+            id="outlined-basic"
+            label="Parent E-Mail Id"
             variant="outlined"
             name="parentmailid"
             type="email"
@@ -155,6 +225,7 @@ export default function FormDialog() {
           <TextField
             id="outlined-basic"
             label="Parent Phone Number"
+            required
             variant="outlined"
             name="parentphoneno"
             type="number"
@@ -169,7 +240,8 @@ export default function FormDialog() {
 
           <TextField
             id="outlined-basic"
-            label="Student Mail Id"
+            label="Student E-Mail Id"
+            required
             variant="outlined"
             name="studentmailid"
             type="email"
@@ -185,6 +257,7 @@ export default function FormDialog() {
           <TextField
             id="outlined-basic"
             label="Student Phone Number"
+            required
             variant="outlined"
             name="studentphoneno"
             type="number"
@@ -200,6 +273,7 @@ export default function FormDialog() {
           <TextField
             id="outlined-basic"
             label="DOB"
+            required
             type="date"
             variant="outlined"
             name="dob"
@@ -221,6 +295,7 @@ export default function FormDialog() {
           <TextField
             id="outlined-basic"
             label="Name of School Studied"
+            required
             variant="outlined"
             name="schoolname"
             sx={{
@@ -248,6 +323,7 @@ export default function FormDialog() {
 
           <TextField
             id="outlined-basic"
+            required
             label="Place of Study"
             variant="outlined"
             name="placeofstudy"
@@ -261,16 +337,20 @@ export default function FormDialog() {
           />
           <FormControl
             sx={{
-              width: "70%",
-              marginBottom: "20px",
+              width: {
+                xs: "85%",
+                sm: "70%",
+              },
             }}
           >
             <InputLabel>Board of Study</InputLabel>
             <Select
               labelId="demo-simple-select-label1"
+              required
               id="demo-simple-select"
               label="Board of Study"
               name="boardofstudy"
+              value={board}
               onChange={handleChangeboard}
               sx={{
                 width: "100%",
@@ -284,6 +364,7 @@ export default function FormDialog() {
             </Select>
             {board === "other" && (
               <TextField
+              required
                 sx={{
                   width: "100%",
                   paddingBottom: "10px",
@@ -297,6 +378,7 @@ export default function FormDialog() {
           <TextField
             id="outlined-basic"
             label="12th Exam Registration No."
+            required
             variant="outlined"
             name="regno"
             sx={{
@@ -310,16 +392,22 @@ export default function FormDialog() {
 
           <FormControl
             sx={{
-              width: "70%",
+              width: {
+                xs: "85%",
+                sm: "70%",
+              },
               marginBottom: "20px",
             }}
           >
             <InputLabel id="outlined-basic">Expected Cut-off</InputLabel>
             <Select
               labelId="demo-simple-select-label1"
+              required
               id="demo-simple-select"
               name="tentativecutoff"
               label="Expected Cut-off"
+              value={tentativecutoff}
+              onChange={handleChangetentativecutoff}
               variant="outlined"
               sx={{
                 width: "100%",
@@ -327,28 +415,60 @@ export default function FormDialog() {
               }}
             >
               <MenuItem value="<150">&lt;150</MenuItem>
-              <MenuItem value="150-160">150-160</MenuItem>
-              <MenuItem value="160-170">160-170</MenuItem>
-              <MenuItem value="170-180">170-180</MenuItem>
-              <MenuItem value="180-190">180-190</MenuItem>
-              <MenuItem value="190-195">190-195</MenuItem>
+              <MenuItem value="151-160">151-160</MenuItem>
+              <MenuItem value="161-170">161-170</MenuItem>
+              <MenuItem value="171-180">171-180</MenuItem>
+              <MenuItem value="181-185">181-185</MenuItem>
+              <MenuItem value="186-190">186-190</MenuItem>
+              <MenuItem value="191-195">191-195</MenuItem>
               <MenuItem value=">195">{">"}195</MenuItem>
               {/* Add more options as needed */}
             </Select>
           </FormControl>
 
+
+          <FormControl sx={{
+              width: "70%",
+              marginBottom: "10px",
+            }}>
+            <InputLabel id="demo-multiple-checkbox-label">Select Courses</InputLabel>
+            <Select
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              multiple
+              value={courselist}
+              name="course"
+              onChange={handleChange}
+              input={<OutlinedInput label="Select Courses" />}
+              renderValue={(selected) => selected.join(", ")}
+              MenuProps={MenuProps}
+            >
+              {courses.map((course) => (
+                <MenuItem key={course} value={course}>
+                  <Checkbox checked={courselist.indexOf(course) > -1} />
+                  <ListItemText primary={course} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
           <FormControl
             sx={{
-              width: "70%",
+              width: {
+                xs: "85%",
+                sm: "70%",
+              },
               marginBottom: "20px",
             }}
           >
             <InputLabel>Category</InputLabel>
             <Select
               labelId="demo-simple-select-label1"
+              required
               id="demo-simple-select"
               label="category"
               name="category"
+              value={category}
               onChange={handleChangecategory}
               sx={{
                 width: "100%",
@@ -368,6 +488,7 @@ export default function FormDialog() {
             </Select>
             {category === "other" && (
               <TextField
+              required
                 sx={{
                   width: "100%",
                   paddingBottom: "20px",
@@ -378,32 +499,14 @@ export default function FormDialog() {
             )}
           </FormControl>
 
-          <FormControl
-            sx={{
-              width: {
-                xs: "85%",
-                sm: "70%",
-              },
-              marginBottom: "20px",
-            }}
-          >
-            <InputLabel>Willing to Avail Merit Scholarship?</InputLabel>
-            <Select
-              labelId="scholarship"
-              id="demo-simple-select"
-              label="willing to avail merit scholarship?"
-              name="scholarship"
-              sx={{
-                width: "100%",
-                marginBottom: "20px",
-              }}
-            >
-              <MenuItem value="yes">Yes</MenuItem>
-              <MenuItem value="no">No</MenuItem>
-            </Select>
-          </FormControl>
+          
 
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" sx={{
+            width: {
+              xs: "85%",
+              sm: "70%",
+            },
+          }}>
             Submit
           </Button>
         </Box>
@@ -415,6 +518,7 @@ export default function FormDialog() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+
         }}
       >
         <br></br>
@@ -427,3 +531,19 @@ export default function FormDialog() {
     </React.Fragment>
   );
 }
+
+
+const courses = [
+  "Computer Science Engineering",
+  "Information Technology",
+  "Artificial Intelligence and Data Science",
+  "Artificial Intelligence and Machine Learning",
+  "Electronics and Communications Engineering",
+  "Electrical and Electronics Engineering",
+  "Computer Science Engineering (Cybersecurity)",
+  "Mechatronics Engineering",
+  "Mechanical Engineering",
+  "Chemical Engineering",
+  "BioTechnology",
+  "Master of Business Administration(MBA)",
+];

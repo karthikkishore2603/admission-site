@@ -142,6 +142,7 @@ export default function Formthree() {
           label="Date of birth"
           variant="outlined"
           name="dob"
+          
           sx={{
             width: "70%",
             paddingBottom: "20px",

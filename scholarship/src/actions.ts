@@ -28,14 +28,15 @@ export async function submitForm(formdata: unknown) {
     dob: string,
     parentmailid: string,
     parentphoneno: number,
+    parentname: string,
     placeofstudy: string,
     regno: number,
-    scholarship: string,
     schoolcode: string,
     schoolname: string,
     studentmailid: string,
     studentphoneno: number,
     tentativecutoff: string,
+    course: string,
   } = {
     name: (formdata as { name: string }).name,
     address: (formdata as { address: string }).address,
@@ -44,14 +45,15 @@ export async function submitForm(formdata: unknown) {
     dob: (formdata as { dob: string }).dob,
     parentmailid: (formdata as { parentmailid: string }).parentmailid,
     parentphoneno: (formdata as { parentphoneno: number }).parentphoneno,
+    parentname: (formdata as { parentname : string }).parentname,
     placeofstudy: (formdata as { placeofstudy: string }).placeofstudy,
     regno: (formdata as { regno: number }).regno,
-    scholarship: (formdata as { scholarship: string }).scholarship,
     schoolcode: (formdata as { schoolcode: string }).schoolcode,
     schoolname: (formdata as { schoolname: string }).schoolname,
     studentmailid: (formdata as { studentmailid: string }).studentmailid,
     studentphoneno: (formdata as { studentphoneno: number }).studentphoneno,
     tentativecutoff: (formdata as { tentativecutoff: string }).tentativecutoff,
+    course: (formdata as { course: string }).course,
   }
   const { data, error } = await supabase.from("scholarship").insert([sendData])
   console.log(data)
@@ -62,3 +64,4 @@ export async function submitForm(formdata: unknown) {
     }
   }
 }
+[]
